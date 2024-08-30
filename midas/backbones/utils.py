@@ -61,7 +61,8 @@ def get_activation(name):
 
 
 def forward_default(pretrained, x, function_name="forward_features"):
-    exec(f"pretrained.model.{function_name}(x)")
+    # exec(f"pretrained.model.{function_name}(x)")
+    getattr(pretrained.model,function_name)(x)
 
     layer_1 = pretrained.activations["1"]
     layer_2 = pretrained.activations["2"]
@@ -83,7 +84,8 @@ def forward_default(pretrained, x, function_name="forward_features"):
 def forward_adapted_unflatten(pretrained, x, function_name="forward_features"):
     b, c, h, w = x.shape
 
-    exec(f"glob = pretrained.model.{function_name}(x)")
+    # exec(f"glob = pretrained.model.{function_name}(x)")
+    glob= getattr(pretrained.model,function_name)(x)
 
     layer_1 = pretrained.activations["1"]
     layer_2 = pretrained.activations["2"]
